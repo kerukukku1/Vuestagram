@@ -1,10 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import Instabox from './components/Instabox'
+import store from './store'
+import Tutorial from './components/Tutorial'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -20,6 +23,26 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+    },
+    {
+      path: '/instabox',
+      name: 'Instabox',
+      component: Instabox
+    },
+    {
+      path: '/tutorial',
+      component: Tutorial
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  store.commit('view/start')
+  next()
+})
+
+router.afterEach(() => {
+  store.commit('view/end')
+})
+
+export default router
