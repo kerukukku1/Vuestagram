@@ -1,5 +1,7 @@
 # vuestagram
 
+Listing show instagram images but I can't get API key...
+
 ## Project setup
 ```
 yarn install
